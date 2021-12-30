@@ -64,7 +64,7 @@ def CPUCount():
     """
     Return the number of CPU cores on the system.
 
-    .. note::
+    .. warning::
         If :func:`multiprocessing.cpu_count()` raises a `NotImplementedError` (unlikely), this wrapper issues a warning and returns a "safe" value of 1.
 
     Returns
@@ -191,8 +191,8 @@ class FunctionMapper(MapperBase):
         Map item to output using the function supplied to the constructor.
 
         .. note::
-            If item is a single value, it is passed to the mapping function using map_function(item); if item is a tuple, it is passed with map_function(*item).
-            For functions requiring a single tuple, wrap it in an outer tuple with e.g. ((arg1, arg2), ).
+            - If item is a single value, it is passed to the mapping function using map_function(item); if item is a tuple, it is passed with map_function(*item).
+            - For functions requiring a single tuple, wrap it in an outer tuple with e.g. ((arg1, arg2), ).
 
         Parameters
         ----------
@@ -257,11 +257,13 @@ def QueueMap(inputList, mappers, progressBar = False):
     Each Mapper is passed to a worker process, and the input list is processed in parallel using a queue-based producer-consumer model.
 
     .. note::
-        There is no guarentee which `Mapper` will process which input item(s), so all Mappers must return the same result for a given input.
-        The reason for using `Mapper` objects rather than a single mapping function is so each `Mapper` can e.g. use different working directories.
-        If the flexibilty of Mappers is not needed, the :func:`~MultiprocessingHelper.QueueMapFunction()` routine presents a similar interface to the :func:`~multiprocessing.Pool.map()` function.
-        If only one mapper is supplied, the input list will be mapped in serial.
-        If the :mod:`tqdm` module is not available, setting `progressBar = True` will issue a warning and a progress bar will not be displayed.
+        - There is no guarentee which `Mapper` will process which input item(s), so all Mappers must return the same result for a given input.
+        - The reason for using `Mapper` objects rather than a single mapping function is so each `Mapper` can e.g. use different working directories.
+        - If the flexibilty of Mappers is not needed, the :func:`~MultiprocessingHelper.QueueMapFunction()` routine presents a similar interface to the :func:`~multiprocessing.Pool.map()` function.
+
+    .. warning::
+        - If only one mapper is supplied, the input list will be mapped in serial.
+        - If the :mod:`tqdm` module is not available, setting `progressBar = True` will issue a warning and a progress bar will not be displayed.
 
     Parameters
     ----------
@@ -427,11 +429,13 @@ def QueueMapFunction(mapFunction, inputList, maxNumProcesses = CPUCount(), progr
     This routine effectively implements a queue-based alternative to :func:`~multiprocessing.Pool.map()` with support for a TQDM progress bar.
 
     .. note:: 
-        Internally, `mapFunction` is wrapped by :class:`~MultiprocessingHelper.FunctionMapper` classes; therefore, pasing input items to the function works as per the :func:`~MultiprocessingHelper.FunctionMapper.Map()` function of `FunctionMapper`.
-        If an item is a single value, it is passed to the mapping function with `map_function(item)`; if it is a tuple, it is passed as `map_function(*item)`.
-        Single-tuple arguments will need to be wrapped in an outer tuple, e.g. `((arg1, arg2), )`.
-        As for :func:`QueueMap()`, if `maxNumProcesses` is set to 1, a serial mapping will be performed without spawning any worker processes.
-        Similarly, if the :mod:`tqdm` module is not available, setting `progressBar = True` will not work and will cause a warning to be issued.
+        - Internally, `mapFunction` is wrapped by :class:`~MultiprocessingHelper.FunctionMapper` classes; therefore, pasing input items to the function works as per the :func:`~MultiprocessingHelper.FunctionMapper.Map()` function of `FunctionMapper`.
+        - If an item is a single value, it is passed to the mapping function with `map_function(item)`; if it is a tuple, it is passed as `map_function(*item)`.
+        - Single-tuple arguments will need to be wrapped in an outer tuple, e.g. `((arg1, arg2), )`.
+        - As for :func:`QueueMap()`, if `maxNumProcesses` is set to 1, a serial mapping will be performed without spawning any worker processes.
+
+    .. warning::
+        - Similarly, if the :mod:`tqdm` module is not available, setting `progressBar = True` will not work and will cause a warning to be issued.
 
     Parameters
     ----------
@@ -517,8 +521,10 @@ def QueueAccumulate(inputList, accumulators, progressBar = False):
     Each Accumulator is passed to a worker process, and the input list is processed in parallel using a queue-based system.
 
     .. note::
-        If only one Accumulator is supplied, the input list will be processed in serial.
-        As for the :func:`~MultiprocessingHelper.QueueMap()` function, setting `progressBar = True` when the :mod:`tqdm` module is not available will issue a warning, and a progress bar will not be displayed.
+        - If only one Accumulator is supplied, the input list will be processed in serial.
+
+    .. warning::
+        - As for the :func:`~MultiprocessingHelper.QueueMap()` function, setting `progressBar = True` when the :mod:`tqdm` module is not available will issue a warning, and a progress bar will not be displayed.
 
     Parameters
     ----------
