@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transformer.Utilities.MultiprocessingHelper module &mdash; Transformer 0.0.1.dev37 documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Transformer.Utilities.StructureTools module" href="Transformer.Utilities.StructureTools.html" />
+    <link rel="prev" title="Transformer.Utilities.IOHelper module" href="Transformer.Utilities.IOHelper.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Transformer
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Transformer</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="Transformer.html">Transformer package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="Transformer.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Transformer.Analysis.html">Transformer.Analysis package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Transformer.Framework.html">Transformer.Framework package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Transformer.IO.html">Transformer.IO package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Transformer.Screening.html">Transformer.Screening package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="Transformer.Utilities.html">Transformer.Utilities package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Transformer.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Transformer.html#module-Transformer">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Transformer</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">Transformer</a> &raquo;</li>
+          <li><a href="Transformer.html">Transformer package</a> &raquo;</li>
+          <li><a href="Transformer.Utilities.html">Transformer.Utilities package</a> &raquo;</li>
+      <li>Transformer.Utilities.MultiprocessingHelper module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Transformer.Utilities.MultiprocessingHelper.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="module-Transformer.Utilities.MultiprocessingHelper">
+<span id="transformer-utilities-multiprocessinghelper-module"></span><h1>Transformer.Utilities.MultiprocessingHelper module<a class="headerlink" href="#module-Transformer.Utilities.MultiprocessingHelper" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-MultiprocessingHelper"></span><dl class="py class">
+<dt id="Transformer.Utilities.MultiprocessingHelper.AccumulatorBase">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Transformer.Utilities.MultiprocessingHelper.</span></code><code class="sig-name descname"><span class="pre">AccumulatorBase</span></code><a class="reference internal" href="_modules/Transformer/Utilities/MultiprocessingHelper.html#AccumulatorBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Transformer.Utilities.MultiprocessingHelper.AccumulatorBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base for Accumulators to be passed to the <code class="xref py py-func docutils literal notranslate"><span class="pre">QueueAccumulate()</span></code> routine.</p>
+<dl class="py method">
+<dt id="Transformer.Utilities.MultiprocessingHelper.AccumulatorBase.Accumulate">
+<code class="sig-name descname"><span class="pre">Accumulate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Transformer/Utilities/MultiprocessingHelper.html#AccumulatorBase.Accumulate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Transformer.Utilities.MultiprocessingHelper.AccumulatorBase.Accumulate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process/accumulate a new item.
+This method must be overridden in derived classes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>item</strong> (<em>[</em><em>type</em><em>]</em>) – [description]</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – <cite>Accumulate()</cite> must be overridden by derived classes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Transformer.Utilities.MultiprocessingHelper.AccumulatorBase.Finalise">
+<code class="sig-name descname"><span class="pre">Finalise</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Transformer/Utilities/MultiprocessingHelper.html#AccumulatorBase.Finalise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Transformer.Utilities.MultiprocessingHelper.AccumulatorBase.Finalise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finalise processing and return accumulated output.
+This method must be overridden in derived classes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – <cite>Finalise()</cite> must be overridden by derived classes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="Transformer.Utilities.MultiprocessingHelper.CPUCount">
+<code class="sig-prename descclassname"><span class="pre">Transformer.Utilities.MultiprocessingHelper.</span></code><code class="sig-name descname"><span class="pre">CPUCount</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Transformer/Utilities/MultiprocessingHelper.html#CPUCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Transformer.Utilities.MultiprocessingHelper.CPUCount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of CPU cores on the system.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If <code class="xref py py-func docutils literal notranslate"><span class="pre">multiprocessing.cpu_count()</span></code> raises a <cite>NotImplementedError</cite> (unlikely), this wrapper issues a warning and returns a “safe” value of 1.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>[description]</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>[type]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="Transformer.Utilities.MultiprocessingHelper.Counter">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Transformer.Utilities.MultiprocessingHelper.</span></code><code class="sig-name descname"><span class="pre">Counter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initialValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">readLock</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Transformer/Utilities/MultiprocessingHelper.html#Counter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Transformer.Utilities.MultiprocessingHelper.Counter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Implements a simple shared-memory integer counter.
+Increments and decrements are protected by a lock, and reads can optionally also be protected.</p>
+<dl class="py method">
+<dt id="Transformer.Utilities.MultiprocessingHelper.Counter.Current">
+<code class="sig-name descname"><span class="pre">Current</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Transformer/Utilities/MultiprocessingHelper.html#Counter.Current"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Transformer.Utilities.MultiprocessingHelper.Counter.Current" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the current value of the counter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>[description]</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>[type]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Transformer.Utilities.MultiprocessingHelper.Counter.Decrement">
+<code class="sig-name descname"><span class="pre">Decrement</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Transformer/Utilities/MultiprocessingHelper.html#Counter.Decrement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Transformer.Utilities.MultiprocessingHelper.Counter.Decrement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decrement the counter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>amount</strong> (<em>int</em><em>, </em><em>optional</em>) – amount to subtract from the counter, by default 1.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Transformer.Utilities.MultiprocessingHelper.Counter.Increment">
+<code class="sig-name descname"><span class="pre">Increment</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Transformer/Utilities/MultiprocessingHelper.html#Counter.Increment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Transformer.Utilities.MultiprocessingHelper.Counter.Increment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Increment the counter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>amount</strong> (<em>int</em><em>, </em><em>optional</em>) – amount to add to the counter, by default 1.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="Transformer.Utilities.MultiprocessingHelper.FunctionMapper">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Transformer.Utilities.MultiprocessingHelper.</span></code><code class="sig-name descname"><span class="pre">FunctionMapper</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapFunction</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Transformer/Utilities/MultiprocessingHelper.html#FunctionMapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Transformer.Utilities.MultiprocessingHelper.FunctionMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Transformer.Utilities.MultiprocessingHelper.MapperBase" title="Transformer.Utilities.MultiprocessingHelper.MapperBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transformer.Utilities.MultiprocessingHelper.MapperBase</span></code></a></p>
+<p>Basic Mapper which wrapps a supplied mapping function.</p>
+<dl class="py method">
+<dt id="Transformer.Utilities.MultiprocessingHelper.FunctionMapper.Map">
+<code class="sig-name descname"><span class="pre">Map</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Transformer/Utilities/MultiprocessingHelper.html#FunctionMapper.Map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Transformer.Utilities.MultiprocessingHelper.FunctionMapper.Map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Map item to output using the function supplied to the constructor.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>If item is a single value, it is passed to the mapping function using map_function(item); if item is a tuple, it is passed with map_function(<a href="#id1"><span class="problematic" id="id2">*</span></a>item).</p></li>
+<li><p>For functions requiring a single tuple, wrap it in an outer tuple with e.g. ((arg1, arg2), ).</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>item</strong> (<em>[</em><em>type</em><em>]</em>) – [description]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>[description]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>[type]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="Transformer.Utilities.MultiprocessingHelper.MapperBase">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Transformer.Utilities.MultiprocessingHelper.</span></code><code class="sig-name descname"><span class="pre">MapperBase</span></code><a class="reference internal" href="_modules/Transformer/Utilities/MultiprocessingHelper.html#MapperBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Transformer.Utilities.MultiprocessingHelper.MapperBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base for Mapper classes to be passed to the <code class="xref py py-func docutils literal notranslate"><span class="pre">QueueMap()</span></code> routine.</p>
+<dl class="py method">
+<dt id="Transformer.Utilities.MultiprocessingHelper.MapperBase.Map">
+<code class="sig-name descname"><span class="pre">Map</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Transformer/Utilities/MultiprocessingHelper.html#MapperBase.Map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Transformer.Utilities.MultiprocessingHelper.MapperBase.Map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Map item and return output.
+This method must be overridden by derived classes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>item</strong> (<em>[</em><em>type</em><em>]</em>) – [description]</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – <cite>Map()</cite> must be overridden in a derived class.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt id="Transformer.Utilities.MultiprocessingHelper.PollDelay">
+<code class="sig-prename descclassname"><span class="pre">Transformer.Utilities.MultiprocessingHelper.</span></code><code class="sig-name descname"><span class="pre">PollDelay</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0.001</span></em><a class="headerlink" href="#Transformer.Utilities.MultiprocessingHelper.PollDelay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Per-process number of items used to define the batch size for queue-based inter-process communication.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="Transformer.Utilities.MultiprocessingHelper.QueueAccumulate">
+<code class="sig-prename descclassname"><span class="pre">Transformer.Utilities.MultiprocessingHelper.</span></code><code class="sig-name descname"><span class="pre">QueueAccumulate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputList</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accumulators</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progressBar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Transformer/Utilities/MultiprocessingHelper.html#QueueAccumulate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Transformer.Utilities.MultiprocessingHelper.QueueAccumulate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accumulate items in inputList, dividing the work among the supplied set of Accumulator objects.
+Each Accumulator is passed to a worker process, and the input list is processed in parallel using a queue-based system.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>If only one Accumulator is supplied, the input list will be processed in serial.</p></li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul class="simple">
+<li><p>As for the <code class="xref py py-func docutils literal notranslate"><span class="pre">QueueMap()</span></code> function, setting <cite>progressBar = True</cite> when the <code class="xref py py-mod docutils literal notranslate"><span class="pre">tqdm</span></code> module is not available will issue a warning, and a progress bar will not be displayed.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputList</strong> (<em>list</em>) – list of inputs to process with Accumulators.</p></li>
+<li><p><strong>accumulators</strong> (<em>[</em><em>type</em><em>]</em>) – a set of user-defined Accumulator objects; the number supplied sets the number of worker processes spawned.</p></li>
+<li><p><strong>progressBar</strong> (<em>bool</em><em>, </em><em>optional</em>) – if True, display a progress bar during mapping (requires the <cite>tqdm</cite> module).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>accumulatorResults</strong> – [description]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>AssertionError</strong> – if inputList is None.</p></li>
+<li><p><strong>Exception</strong> – if no accumulator is supplied.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="Transformer.Utilities.MultiprocessingHelper.QueueMap">
+<code class="sig-prename descclassname"><span class="pre">Transformer.Utilities.MultiprocessingHelper.</span></code><code class="sig-name descname"><span class="pre">QueueMap</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputList</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mappers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progressBar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Transformer/Utilities/MultiprocessingHelper.html#QueueMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Transformer.Utilities.MultiprocessingHelper.QueueMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Map items in inputList to an in-order list of outputs, dividing the work among the supplied set of Mapper objects.
+Each Mapper is passed to a worker process, and the input list is processed in parallel using a queue-based producer-consumer model.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>There is no guarentee which <cite>Mapper</cite> will process which input item(s), so all Mappers must return the same result for a given input.</p></li>
+<li><p>The reason for using <cite>Mapper</cite> objects rather than a single mapping function is so each <cite>Mapper</cite> can e.g. use different working directories.</p></li>
+<li><p>If the flexibilty of Mappers is not needed, the <code class="xref py py-func docutils literal notranslate"><span class="pre">QueueMapFunction()</span></code> routine presents a similar interface to the <code class="xref py py-func docutils literal notranslate"><span class="pre">map()</span></code> function.</p></li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul class="simple">
+<li><p>If only one mapper is supplied, the input list will be mapped in serial.</p></li>
+<li><p>If the <code class="xref py py-mod docutils literal notranslate"><span class="pre">tqdm</span></code> module is not available, setting <cite>progressBar = True</cite> will issue a warning and a progress bar will not be displayed.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputList</strong> (<em>list</em>) – list of inputs to process with the Mappers.</p></li>
+<li><p><strong>mappers</strong> (<em>[</em><em>type</em><em>]</em>) – a set of user-defined Mapper objects; the number of Mappers sets the number of worker processes that will be spawned.</p></li>
+<li><p><strong>progressBar</strong> (<em>bool</em><em>, </em><em>optional</em>) – if True, and if the tqdm module is available, display a progress bar during mapping, by default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>[description]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>[type]</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>Exception</strong> – [description]</p></li>
+<li><p><strong>Exception</strong> – [description]</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="Transformer.Utilities.MultiprocessingHelper.QueueMapFunction">
+<code class="sig-prename descclassname"><span class="pre">Transformer.Utilities.MultiprocessingHelper.</span></code><code class="sig-name descname"><span class="pre">QueueMapFunction</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapFunction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputList</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxNumProcesses</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progressBar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Transformer/Utilities/MultiprocessingHelper.html#QueueMapFunction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Transformer.Utilities.MultiprocessingHelper.QueueMapFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Map items in inputList through mapFunction and return a list of outputs.
+This routine effectively implements a queue-based alternative to <code class="xref py py-func docutils literal notranslate"><span class="pre">map()</span></code> with support for a TQDM progress bar.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Internally, <cite>mapFunction</cite> is wrapped by <code class="xref py py-class docutils literal notranslate"><span class="pre">FunctionMapper</span></code> classes; therefore, pasing input items to the function works as per the <code class="xref py py-func docutils literal notranslate"><span class="pre">Map()</span></code> function of <cite>FunctionMapper</cite>.</p></li>
+<li><p>If an item is a single value, it is passed to the mapping function with <cite>map_function(item)</cite>; if it is a tuple, it is passed as <cite>map_function(*item)</cite>.</p></li>
+<li><p>Single-tuple arguments will need to be wrapped in an outer tuple, e.g. <cite>((arg1, arg2), )</cite>.</p></li>
+<li><p>As for <a class="reference internal" href="#Transformer.Utilities.MultiprocessingHelper.QueueMap" title="Transformer.Utilities.MultiprocessingHelper.QueueMap"><code class="xref py py-func docutils literal notranslate"><span class="pre">QueueMap()</span></code></a>, if <cite>maxNumProcesses</cite> is set to 1, a serial mapping will be performed without spawning any worker processes.</p></li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul class="simple">
+<li><p>Similarly, if the <code class="xref py py-mod docutils literal notranslate"><span class="pre">tqdm</span></code> module is not available, setting <cite>progressBar = True</cite> will not work and will cause a warning to be issued.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mapFunction</strong> (<em>[</em><em>type</em><em>]</em>) – [description]</p></li>
+<li><p><strong>inputList</strong> (<em>[</em><em>type</em><em>]</em>) – [description]</p></li>
+<li><p><strong>maxNumProcesses</strong> (<em>[</em><em>type</em><em>]</em><em>, </em><em>optional</em>) – maximum number of worker processes, by default MultiprocessingHelper.CPUCount().</p></li>
+<li><p><strong>progressBar</strong> (<em>bool</em><em>, </em><em>optional</em>) – if True, and if the tqdm module is available, display a progress bar during mapping, by default True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>[description]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>[type]</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>AssertionError</strong> – if mapFunction is None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="Transformer.Utilities.MultiprocessingHelper._QueueAccumulate_ProcessMain">
+<code class="sig-prename descclassname"><span class="pre">Transformer.Utilities.MultiprocessingHelper.</span></code><code class="sig-name descname"><span class="pre">_QueueAccumulate_ProcessMain</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">accumulator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputQueue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputCounter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputQueue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terminateFlag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Transformer/Utilities/MultiprocessingHelper.html#_QueueAccumulate_ProcessMain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Transformer.Utilities.MultiprocessingHelper._QueueAccumulate_ProcessMain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Worker process function for processes spawned by the <code class="xref py py-func docutils literal notranslate"><span class="pre">QueueAccumulate()</span></code> function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>accumulator</strong> (<em>[</em><em>type</em><em>]</em>) – Accumulator object to be used to accumulate input items.</p></li>
+<li><p><strong>inputQueue</strong> (<em>[</em><em>type</em><em>]</em>) – queue from which to retrieve input items to process.</p></li>
+<li><p><strong>inputCounter</strong> (<em>[</em><em>type</em><em>]</em>) – shared-memory counter used to track the progress of the input processing.</p></li>
+<li><p><strong>outputQueue</strong> (<em>[</em><em>type</em><em>]</em>) – queue in which to place the result returned by the <cite>Finalise()</cite> method of the accumulator once all input items have been processed.</p></li>
+<li><p><strong>terminateFlag</strong> (<em>[</em><em>type</em><em>]</em>) – shared-memory flag used to signal the worker process to finalise the accumulation, return the result, and terminate.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="Transformer.Utilities.MultiprocessingHelper._QueueMap_ProcessMain">
+<code class="sig-prename descclassname"><span class="pre">Transformer.Utilities.MultiprocessingHelper.</span></code><code class="sig-name descname"><span class="pre">_QueueMap_ProcessMain</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputQueue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputQueue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terminateFlag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Transformer/Utilities/MultiprocessingHelper.html#_QueueMap_ProcessMain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Transformer.Utilities.MultiprocessingHelper._QueueMap_ProcessMain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Worker process function for processes spawned by the <code class="xref py py-func docutils literal notranslate"><span class="pre">MultiprocessingHelperQueueMap()</span></code> function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mapper</strong> (<em>[</em><em>type</em><em>]</em>) – Mapper object to be used to map input items to outputs.</p></li>
+<li><p><strong>inputQueue</strong> (<em>[</em><em>type</em><em>]</em>) – queue from which to retrieve (index, item) tuples to process.</p></li>
+<li><p><strong>outputQueue</strong> (<em>[</em><em>type</em><em>]</em>) – queue in which to place (index, item) output.</p></li>
+<li><p><strong>terminateFlag</strong> (<em>[</em><em>type</em><em>]</em>) – shared-memory flag used to signal the worker process to terminate.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Transformer.Utilities.IOHelper.html" class="btn btn-neutral float-left" title="Transformer.Utilities.IOHelper module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Transformer.Utilities.StructureTools.html" class="btn btn-neutral float-right" title="Transformer.Utilities.StructureTools module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Jonathan M Skelton.
+      <span class="lastupdated">Last updated on Dec 30, 2021.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
