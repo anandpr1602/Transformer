@@ -216,7 +216,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="o">.</span><span class="n">value</span> <span class="o">+=</span> <span class="n">amount</span><span class="p">;</span></div></div>
 
 <div class="viewcode-block" id="MapperBase"><a class="viewcode-back" href="../../../Transformer.Utilities.MultiprocessingHelper.html#Transformer.Utilities.MultiprocessingHelper.MapperBase">[docs]</a><span class="k">class</span> <span class="nc">MapperBase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Base for Mapper classes to be passed to the :func:`~MultiprocessingHelper.QueueMap()` routine. &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot; Base for Mapper classes to be passed to the :func:`~MultiprocessingHelper.QueueMap` routine. &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="MapperBase.Map"><a class="viewcode-back" href="../../../Transformer.Utilities.MultiprocessingHelper.html#Transformer.Utilities.MultiprocessingHelper.MapperBase.Map">[docs]</a>    <span class="k">def</span> <span class="nf">Map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -280,7 +280,7 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapFunction</span><span class="p">(</span><span class="n">item</span><span class="p">);</span></div></div>
 
 <div class="viewcode-block" id="AccumulatorBase"><a class="viewcode-back" href="../../../Transformer.Utilities.MultiprocessingHelper.html#Transformer.Utilities.MultiprocessingHelper.AccumulatorBase">[docs]</a><span class="k">class</span> <span class="nc">AccumulatorBase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Base for Accumulators to be passed to the :func:`~MultiprocessingHelper.QueueAccumulate()` routine. &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot; Base for Accumulators to be passed to the :func:`~MultiprocessingHelper.QueueAccumulate` routine. &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="AccumulatorBase.Accumulate"><a class="viewcode-back" href="../../../Transformer.Utilities.MultiprocessingHelper.html#Transformer.Utilities.MultiprocessingHelper.AccumulatorBase.Accumulate">[docs]</a>    <span class="k">def</span> <span class="nf">Accumulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -326,7 +326,7 @@
 <span class="sd">    .. note::</span>
 <span class="sd">        - There is no guarentee which `Mapper` will process which input item(s), so all Mappers must return the same result for a given input.</span>
 <span class="sd">        - The reason for using `Mapper` objects rather than a single mapping function is so each `Mapper` can e.g. use different working directories.</span>
-<span class="sd">        - If the flexibilty of Mappers is not needed, the :func:`~MultiprocessingHelper.QueueMapFunction()` routine presents a similar interface to the :func:`~multiprocessing.Pool.map()` function.</span>
+<span class="sd">        - If the flexibilty of Mappers is not needed, the :func:`~MultiprocessingHelper.QueueMapFunction` routine presents a similar interface to the :func:`~multiprocessing.Pool.map` function.</span>
 
 <span class="sd">    .. warning::</span>
 <span class="sd">        - If only one mapper is supplied, the input list will be mapped in serial.</span>
@@ -493,10 +493,10 @@
 <div class="viewcode-block" id="QueueMapFunction"><a class="viewcode-back" href="../../../Transformer.Utilities.MultiprocessingHelper.html#Transformer.Utilities.MultiprocessingHelper.QueueMapFunction">[docs]</a><span class="k">def</span> <span class="nf">QueueMapFunction</span><span class="p">(</span><span class="n">mapFunction</span><span class="p">,</span> <span class="n">inputList</span><span class="p">,</span> <span class="n">maxNumProcesses</span> <span class="o">=</span> <span class="n">CPUCount</span><span class="p">(),</span> <span class="n">progressBar</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Map items in inputList through mapFunction and return a list of outputs.</span>
-<span class="sd">    This routine effectively implements a queue-based alternative to :func:`~multiprocessing.Pool.map()` with support for a TQDM progress bar.</span>
+<span class="sd">    This routine effectively implements a queue-based alternative to :func:`~multiprocessing.Pool.map` with support for a TQDM progress bar.</span>
 
 <span class="sd">    .. note:: </span>
-<span class="sd">        - Internally, `mapFunction` is wrapped by :class:`~MultiprocessingHelper.FunctionMapper` classes; therefore, pasing input items to the function works as per the :func:`~MultiprocessingHelper.FunctionMapper.Map()` function of `FunctionMapper`.</span>
+<span class="sd">        - Internally, `mapFunction` is wrapped by :class:`~MultiprocessingHelper.FunctionMapper` classes; therefore, pasing input items to the function works as per the :func:`~MultiprocessingHelper.FunctionMapper.Map` function of `FunctionMapper`.</span>
 <span class="sd">        - If an item is a single value, it is passed to the mapping function with `map_function(item)`; if it is a tuple, it is passed as `map_function(*item)`.</span>
 <span class="sd">        - Single-tuple arguments will need to be wrapped in an outer tuple, e.g. `((arg1, arg2), )`.</span>
 <span class="sd">        - As for :func:`QueueMap()`, if `maxNumProcesses` is set to 1, a serial mapping will be performed without spawning any worker processes.</span>
@@ -540,7 +540,7 @@
 
 <div class="viewcode-block" id="_QueueMap_ProcessMain"><a class="viewcode-back" href="../../../Transformer.Utilities.MultiprocessingHelper.html#Transformer.Utilities.MultiprocessingHelper._QueueMap_ProcessMain">[docs]</a><span class="k">def</span> <span class="nf">_QueueMap_ProcessMain</span><span class="p">(</span><span class="n">mapper</span><span class="p">,</span> <span class="n">inputQueue</span><span class="p">,</span> <span class="n">outputQueue</span><span class="p">,</span> <span class="n">terminateFlag</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Worker process function for processes spawned by the :func:`~MultiprocessingHelperQueueMap()` function.</span>
+<span class="sd">    Worker process function for processes spawned by the :func:`~MultiprocessingHelperQueueMap` function.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -591,7 +591,7 @@
 <span class="sd">        - If only one Accumulator is supplied, the input list will be processed in serial.</span>
 
 <span class="sd">    .. warning::</span>
-<span class="sd">        - As for the :func:`~MultiprocessingHelper.QueueMap()` function, setting `progressBar = True` when the :mod:`tqdm` module is not available will issue a warning, and a progress bar will not be displayed.</span>
+<span class="sd">        - As for the :func:`~MultiprocessingHelper.QueueMap` function, setting `progressBar = True` when the :mod:`tqdm` module is not available will issue a warning, and a progress bar will not be displayed.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -741,7 +741,7 @@
 
 <div class="viewcode-block" id="_QueueAccumulate_ProcessMain"><a class="viewcode-back" href="../../../Transformer.Utilities.MultiprocessingHelper.html#Transformer.Utilities.MultiprocessingHelper._QueueAccumulate_ProcessMain">[docs]</a><span class="k">def</span> <span class="nf">_QueueAccumulate_ProcessMain</span><span class="p">(</span><span class="n">accumulator</span><span class="p">,</span> <span class="n">inputQueue</span><span class="p">,</span> <span class="n">inputCounter</span><span class="p">,</span> <span class="n">outputQueue</span><span class="p">,</span> <span class="n">terminateFlag</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Worker process function for processes spawned by the :func:`~MultiprocessingHelper.QueueAccumulate()` function.</span>
+<span class="sd">    Worker process function for processes spawned by the :func:`~MultiprocessingHelper.QueueAccumulate` function.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>

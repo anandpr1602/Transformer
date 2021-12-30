@@ -149,7 +149,7 @@ class Counter(object):
             self._value.value += amount;
 
 class MapperBase(object):
-    """ Base for Mapper classes to be passed to the :func:`~MultiprocessingHelper.QueueMap()` routine. """
+    """ Base for Mapper classes to be passed to the :func:`~MultiprocessingHelper.QueueMap` routine. """
 
     def Map(self, item):
         """
@@ -213,7 +213,7 @@ class FunctionMapper(MapperBase):
             return self._mapFunction(item);
 
 class AccumulatorBase(object):
-    """ Base for Accumulators to be passed to the :func:`~MultiprocessingHelper.QueueAccumulate()` routine. """
+    """ Base for Accumulators to be passed to the :func:`~MultiprocessingHelper.QueueAccumulate` routine. """
 
     def Accumulate(self, item):
         """
@@ -259,7 +259,7 @@ def QueueMap(inputList, mappers, progressBar = False):
     .. note::
         - There is no guarentee which `Mapper` will process which input item(s), so all Mappers must return the same result for a given input.
         - The reason for using `Mapper` objects rather than a single mapping function is so each `Mapper` can e.g. use different working directories.
-        - If the flexibilty of Mappers is not needed, the :func:`~MultiprocessingHelper.QueueMapFunction()` routine presents a similar interface to the :func:`~multiprocessing.Pool.map()` function.
+        - If the flexibilty of Mappers is not needed, the :func:`~MultiprocessingHelper.QueueMapFunction` routine presents a similar interface to the :func:`~multiprocessing.Pool.map` function.
 
     .. warning::
         - If only one mapper is supplied, the input list will be mapped in serial.
@@ -426,10 +426,10 @@ def QueueMap(inputList, mappers, progressBar = False):
 def QueueMapFunction(mapFunction, inputList, maxNumProcesses = CPUCount(), progressBar = True):
     """
     Map items in inputList through mapFunction and return a list of outputs.
-    This routine effectively implements a queue-based alternative to :func:`~multiprocessing.Pool.map()` with support for a TQDM progress bar.
+    This routine effectively implements a queue-based alternative to :func:`~multiprocessing.Pool.map` with support for a TQDM progress bar.
 
     .. note:: 
-        - Internally, `mapFunction` is wrapped by :class:`~MultiprocessingHelper.FunctionMapper` classes; therefore, pasing input items to the function works as per the :func:`~MultiprocessingHelper.FunctionMapper.Map()` function of `FunctionMapper`.
+        - Internally, `mapFunction` is wrapped by :class:`~MultiprocessingHelper.FunctionMapper` classes; therefore, pasing input items to the function works as per the :func:`~MultiprocessingHelper.FunctionMapper.Map` function of `FunctionMapper`.
         - If an item is a single value, it is passed to the mapping function with `map_function(item)`; if it is a tuple, it is passed as `map_function(*item)`.
         - Single-tuple arguments will need to be wrapped in an outer tuple, e.g. `((arg1, arg2), )`.
         - As for :func:`QueueMap()`, if `maxNumProcesses` is set to 1, a serial mapping will be performed without spawning any worker processes.
@@ -473,7 +473,7 @@ def QueueMapFunction(mapFunction, inputList, maxNumProcesses = CPUCount(), progr
 
 def _QueueMap_ProcessMain(mapper, inputQueue, outputQueue, terminateFlag):
     """
-    Worker process function for processes spawned by the :func:`~MultiprocessingHelperQueueMap()` function.
+    Worker process function for processes spawned by the :func:`~MultiprocessingHelperQueueMap` function.
 
     Parameters
     ----------
@@ -524,7 +524,7 @@ def QueueAccumulate(inputList, accumulators, progressBar = False):
         - If only one Accumulator is supplied, the input list will be processed in serial.
 
     .. warning::
-        - As for the :func:`~MultiprocessingHelper.QueueMap()` function, setting `progressBar = True` when the :mod:`tqdm` module is not available will issue a warning, and a progress bar will not be displayed.
+        - As for the :func:`~MultiprocessingHelper.QueueMap` function, setting `progressBar = True` when the :mod:`tqdm` module is not available will issue a warning, and a progress bar will not be displayed.
 
     Parameters
     ----------
@@ -674,7 +674,7 @@ def QueueAccumulate(inputList, accumulators, progressBar = False):
 
 def _QueueAccumulate_ProcessMain(accumulator, inputQueue, inputCounter, outputQueue, terminateFlag):
     """
-    Worker process function for processes spawned by the :func:`~MultiprocessingHelper.QueueAccumulate()` function.
+    Worker process function for processes spawned by the :func:`~MultiprocessingHelper.QueueAccumulate` function.
 
     Parameters
     ----------
