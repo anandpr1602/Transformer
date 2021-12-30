@@ -1,0 +1,13 @@
+ - used docstring generator (https://github.com/NilsJPWerner/autoDocstring - installed as a VS Code extension) to create Numpy docstrings (other popular styles - Google or Sphinx). See https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_numpy.html#example-numpy and https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html.
+ - updated module docstring with some Sphinx/RST identifiers.
+ - added .. note: docstring keyword.
+ - added cross-references to :func:, :mod: and :class: objects.
+ - changed raise a general Exception to raising an AssertionError.
+ - mixedCaseFont or CamelToe fonttypes are reserved usually for Classes. Discouraged for functions, args, and variables.
+ - is `warnings` module required if only to raise a `RuntimeWarning`?
+ - `maxNumProcesses`, `progressBar` in `QueueMapFunction` were not kwargs. Fixed them with default value assignment.
+ - removed `__init__` for `AccumulatorBase` and `MapperBase` classes.
+
+Installation
+ - added empty requirements.txt (good practice to assign specific package versions, unless unit-tested)
+ - "... works in Python >= 2.7 and Python 3..." generally avoided unless tested with specific dev environments. Suggest using Tox (https://pypi.org/project/tox/ and https://tox.wiki/en/latest/examples.html)

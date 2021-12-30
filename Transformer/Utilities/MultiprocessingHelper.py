@@ -5,8 +5,14 @@
 # Module Docstring
 # ----------------
 
-""" Contains primitives and routines for process-based parallelisation using the data-parallel model. """
+"""
+.. module:: MultiprocessingHelper
+    :synopsis: Contains primitives and routines for process-based parallelisation using the data-parallel model.
+    :platform: Unix, Windows
 
+.. moduleauthor:: Jonathan M. Skelton
+
+"""
 
 # -------
 # Imports
@@ -57,7 +63,14 @@ QueueBatchItemsPerProcess = 250;
 def CPUCount():
     """
     Return the number of CPU cores on the system.
-    If multiprocessing cpu_count() raises a NotImplementedError (unlikely), this wrapper issues a warning and returns a "safe" value of 1.
+
+    .. note::
+        If :func:`multiprocessing.cpu_count()` raises a `NotImplementedError` (unlikely), this wrapper issues a warning and returns a "safe" value of 1.
+
+    Returns
+    -------
+    [type]
+        [description]
     """
 
     cpuCount = 1;
@@ -86,15 +99,25 @@ class Counter(object):
         """
         Class constructor.
 
-        Keyword arguments:
-            initialValue -- initial count (default: 0).
-            readLock -- process-safe reads (default: True).
+        Parameters
+        ----------
+        initialValue : int, optional
+            initial count, by default 0.
+        readLock : bool, optional
+            process-safe reads, by default True.
         """
 
         self._value = multiprocessing.Value('i', initialValue);
 
     def Current(self):
-        """ Return the current value of the counter. """
+        """
+        Return the current value of the counter.
+
+        Returns
+        -------
+        [type]
+            [description]
+        """
 
         with self._value.get_lock():
             return self._value.value;
@@ -103,8 +126,10 @@ class Counter(object):
         """
         Decrement the counter.
 
-        Keyword arguments:
-            amount -- amount to subtract from the counter (default: 1).
+        Parameters
+        ----------
+        amount : int, optional
+            amount to subtract from the counter, by default 1.
         """
 
         with self._value.get_lock():
@@ -114,25 +139,32 @@ class Counter(object):
         """
         Increment the counter.
 
-        Keyword arguments:
-            amount -- amount to add to the conunter (default: 1).
+        Parameters
+        ----------
+        amount : int, optional
+            amount to add to the counter, by default 1.
         """
 
         with self._value.get_lock():
             self._value.value += amount;
 
 class MapperBase(object):
-    """ Base for Mapper classes to be passed to the QueueMap() routine. """
-
-    def __init__(self):
-        """ Class constructor. """
-
-        pass;
+    """ Base for Mapper classes to be passed to the :func:`~MultiprocessingHelper.QueueMap()` routine. """
 
     def Map(self, item):
         """
         Map item and return output.
         This method must be overridden by derived classes.
+
+        Parameters
+        ----------
+        item : [type]
+            [description]
+
+        Raises
+        ------
+        NotImplementedError
+            `Map()` must be overridden in a derived class.
         """
 
         raise NotImplementedError("Error: Map() must be overridden in a derived class.");
@@ -144,12 +176,13 @@ class FunctionMapper(MapperBase):
         """
         Class constructor.
 
-        Arguments:
-            mapFunction -- function for mapping input to output items.
+        Parameters
+        ----------
+        mapFunction : [type]
+            function for mapping input to output items.
         """
 
-        if mapFunction == None:
-            raise Exception("Error: mapFunction cannot be None.");
+        assert mapFunction is not None, "Error: mapFunction cannot be None.";
 
         self._mapFunction = mapFunction;
 
@@ -157,9 +190,19 @@ class FunctionMapper(MapperBase):
         """
         Map item to output using the function supplied to the constructor.
 
-        Notes:
+        .. note::
             If item is a single value, it is passed to the mapping function using map_function(item); if item is a tuple, it is passed with map_function(*item).
             For functions requiring a single tuple, wrap it in an outer tuple with e.g. ((arg1, arg2), ).
+
+        Parameters
+        ----------
+        item : [type]
+            [description]
+
+        Returns
+        -------
+        [type]
+            [description]
         """
 
         if isinstance(item, tuple):
@@ -170,17 +213,22 @@ class FunctionMapper(MapperBase):
             return self._mapFunction(item);
 
 class AccumulatorBase(object):
-    """ Base for Accumulators to be passed to the QueueAccumulate() routine. """
-
-    def __init__(self):
-        """ Class constructor. """
-
-        pass;
+    """ Base for Accumulators to be passed to the :func:`~MultiprocessingHelper.QueueAccumulate()` routine. """
 
     def Accumulate(self, item):
         """
         Process/accumulate a new item.
         This method must be overridden in derived classes.
+
+        Parameters
+        ----------
+        item : [type]
+            [description]
+
+        Raises
+        ------
+        NotImplementedError
+            `Accumulate()` must be overridden by derived classes.
         """
 
         raise NotImplementedError("Error: Accumulate() must be overridden by derived classes.");
@@ -189,6 +237,11 @@ class AccumulatorBase(object):
         """
         Finalise processing and return accumulated output.
         This method must be overridden in derived classes.
+
+        Raises
+        ------
+        NotImplementedError
+            `Finalise()` must be overridden by derived classes.
         """
 
         raise NotImplementedError("Error: Finalise() must be overridden by derived classes.");
@@ -201,23 +254,37 @@ class AccumulatorBase(object):
 def QueueMap(inputList, mappers, progressBar = False):
     """
     Map items in inputList to an in-order list of outputs, dividing the work among the supplied set of Mapper objects.
-
     Each Mapper is passed to a worker process, and the input list is processed in parallel using a queue-based producer-consumer model.
 
-    Arguments:
-        inputList -- list of inputs to process with the Mappers.
-        mappers -- a set of user-defined Mapper objects; the number of Mappers sets the number of worker processes that will be spawned.
-
-    Keyword arguments:
-        progressBar -- if True, and if the tqdm module is available, display a progress bar during mapping.
-
-    Notes:
-        There is no guarentee which Mapper will process which input item(s), so all Mappers must return the same result for a given input.
-        The reason for using Mapper objects rather than a single mapping function is so each Mapper can e.g. use different working directories.
-        If the flexibilty of Mappers is not needed, the QueueMapFunction() routine presents a similar interface to the multiprocessing.Pool.map() function.
+    .. note::
+        There is no guarentee which `Mapper` will process which input item(s), so all Mappers must return the same result for a given input.
+        The reason for using `Mapper` objects rather than a single mapping function is so each `Mapper` can e.g. use different working directories.
+        If the flexibilty of Mappers is not needed, the :func:`~MultiprocessingHelper.QueueMapFunction()` routine presents a similar interface to the :func:`~multiprocessing.Pool.map()` function.
         If only one mapper is supplied, the input list will be mapped in serial.
-        If the tqdm module is not available, setting progressBar = True will issue a warning and a progress bar will not be displayed.
+        If the :mod:`tqdm` module is not available, setting `progressBar = True` will issue a warning and a progress bar will not be displayed.
+
+    Parameters
+    ----------
+    inputList : list
+        list of inputs to process with the Mappers.
+    mappers : [type]
+        a set of user-defined Mapper objects; the number of Mappers sets the number of worker processes that will be spawned.
+    progressBar : bool, optional
+        if True, and if the tqdm module is available, display a progress bar during mapping, by default False.
+
+    Returns
+    -------
+    [type]
+        [description]
+
+    Raises
+    ------
+    Exception
+        [description]
+    Exception
+        [description]
     """
+
 
     if inputList == None:
         raise Exception("Error: inputList cannot be None.");
@@ -354,33 +421,41 @@ def QueueMap(inputList, mappers, progressBar = False):
 
     return outputList;
 
-def QueueMapFunction(mapFunction, inputList, maxNumProcesses, progressBar):
+def QueueMapFunction(mapFunction, inputList, maxNumProcesses = CPUCount(), progressBar = True):
     """
     Map items in inputList through mapFunction and return a list of outputs.
+    This routine effectively implements a queue-based alternative to :func:`~multiprocessing.Pool.map()` with support for a TQDM progress bar.
 
-    This routine effectively implements a queue-based alternative to multiprocessing.Pool.map() with support for a TQDM progress bar.
+    .. note:: 
+        Internally, `mapFunction` is wrapped by :class:`~MultiprocessingHelper.FunctionMapper` classes; therefore, pasing input items to the function works as per the :func:`~MultiprocessingHelper.FunctionMapper.Map()` function of `FunctionMapper`.
+        If an item is a single value, it is passed to the mapping function with `map_function(item)`; if it is a tuple, it is passed as `map_function(*item)`.
+        Single-tuple arguments will need to be wrapped in an outer tuple, e.g. `((arg1, arg2), )`.
+        As for :func:`QueueMap()`, if `maxNumProcesses` is set to 1, a serial mapping will be performed without spawning any worker processes.
+        Similarly, if the :mod:`tqdm` module is not available, setting `progressBar = True` will not work and will cause a warning to be issued.
 
-    Arguments:
-        mapFunction -- function for mapping input items to outputs.
-        inputList -- list of inputs to pass to mapFunction.
+    Parameters
+    ----------
+    mapFunction : [type]
+        [description]
+    inputList : [type]
+        [description]
+    maxNumProcesses : [type], optional
+        maximum number of worker processes, by default MultiprocessingHelper.CPUCount().
+    progressBar : bool, optional
+        if True, and if the tqdm module is available, display a progress bar during mapping, by default True.
 
-    Keyword arguments:
-        maxNumProcesses -- maximum number of worker processes (default: MultiprocessingHelper.CPUCount()).
-        progressBar -- if True, and if the tqdm module is available, display a progress bar during mapping.
+    Returns
+    -------
+    [type]
+        [description]
 
-    Notes:
-        Internally, mapFunction is wrapped by FunctionMapper classes; therefore, pasing input items to the function works as per the Map() function of FunctionMapper.
-        If an item is a single value, it is passed to the mapping function with map_function(item); if it is a tuple, it is passed as map_function(*item).
-        Single-tuple arguments will need to be wrapped in an outer tuple, e.g. ((arg1, arg2), ).
-        As for QueueMap(), if maxNumProcesses is set to 1, a serial mapping will be performed without spawning any worker processes.
-        Similarly, if the tqdm module is not available, setting progressBar = True will not work and will cause a warning to be issued.
+    Raises
+    ------
+    AssertionError
+        if mapFunction is None.
     """
 
-    if mapFunction == None:
-        raise Exception("Error: mapFunction cannot be None.");
-
-    if maxNumProcesses == None:
-        maxNumProcesses = CPUCount();
+    assert mapFunction is not None, "Error: mapFunction cannot be None.";
 
     # Don't spin up more processes than necessary.
 
@@ -394,13 +469,18 @@ def QueueMapFunction(mapFunction, inputList, maxNumProcesses, progressBar):
 
 def _QueueMap_ProcessMain(mapper, inputQueue, outputQueue, terminateFlag):
     """
-    Worker process function for processes spawned by the QueueMap() function.
+    Worker process function for processes spawned by the :func:`~MultiprocessingHelperQueueMap()` function.
 
-    Arguments:
-        mapper -- Mapper object to be used to map input items to outputs.
-        inputQueue -- queue from which to retrieve (index, item) tuples to process.
-        outputQueue -- queue in which to place (index, item) output.
-        terminateFlag -- shared-memory flag used to signal the worker process to terminate.
+    Parameters
+    ----------
+    mapper : [type]
+        Mapper object to be used to map input items to outputs.
+    inputQueue : [type]
+        queue from which to retrieve (index, item) tuples to process.
+    outputQueue : [type]
+        queue in which to place (index, item) output.
+    terminateFlag : [type]
+        shared-memory flag used to signal the worker process to terminate.
     """
 
     while True:
@@ -434,26 +514,38 @@ def _QueueMap_ProcessMain(mapper, inputQueue, outputQueue, terminateFlag):
 def QueueAccumulate(inputList, accumulators, progressBar = False):
     """
     Accumulate items in inputList, dividing the work among the supplied set of Accumulator objects.
-
     Each Accumulator is passed to a worker process, and the input list is processed in parallel using a queue-based system.
 
-    Arguments:
-        inputList -- list of inputs to process with Accumulators.
-        accumulators -- a set of user-defined Accumulator objects; the number supplied sets the number of worker processes spawned.
-
-    Keyword arguments:
-        progressBar -- if True, display a progress bar during mapping (requires the tqdm module).
-
-    Notes:
+    .. note::
         If only one Accumulator is supplied, the input list will be processed in serial.
-        As for the QueueMap() function, setting progressBar = True when the tqdm module is not available will issue a warning, and a progress bar will not be displayed.
+        As for the :func:`~MultiprocessingHelper.QueueMap()` function, setting `progressBar = True` when the :mod:`tqdm` module is not available will issue a warning, and a progress bar will not be displayed.
+
+    Parameters
+    ----------
+    inputList : list
+        list of inputs to process with Accumulators.
+    accumulators : [type]
+        a set of user-defined Accumulator objects; the number supplied sets the number of worker processes spawned.
+    progressBar : bool, optional
+        if True, display a progress bar during mapping (requires the `tqdm` module).
+
+    Returns
+    -------
+    accumulatorResults : list
+        [description]
+
+    Raises
+    ------
+    AssertionError
+        if inputList is None.
+    Exception
+        if no accumulator is supplied.
     """
+    
 
-    if inputList == None:
-        raise Exception("Error: inputList cannot be None.");
+    assert inputList is not None, "Error: inputList cannot be None.";
 
-    if accumulators == None or len(accumulators) == 0:
-        raise Exception("Error: At least one accumulator must be supplied.");
+    assert any((accumulators is not None, len(accumulators) != 0)), "Error: inputList cannot be None.";
 
     # If progressBar is set but the tqdm module is not available, issue a warning and reset it.
 
@@ -568,7 +660,7 @@ def QueueAccumulate(inputList, accumulators, progressBar = False):
     # Padding after progress bar.
 
     if progressBar:
-        print("");
+        print();
 
     # Return results.
 
@@ -576,16 +668,21 @@ def QueueAccumulate(inputList, accumulators, progressBar = False):
 
 def _QueueAccumulate_ProcessMain(accumulator, inputQueue, inputCounter, outputQueue, terminateFlag):
     """
-    Worker process function for processes spawned by the QueueAccumulate() function.
+    Worker process function for processes spawned by the :func:`~MultiprocessingHelper.QueueAccumulate()` function.
 
-    Arguments:
-        accumulator -- Accumulator object to be used to accumulate input items.
-        inputQueue -- queue from which to retrieve input items to process.
-        inputCounter -- shared-memory counter used to track the progress of the input processing.
-        outputQueue -- queue in which to place the result returned by the Finalise() method of the accumulator once all input items have been processed.
-        terminateFlag -- shared-memory flag used to signal the worker process to finalise the accumulation, return the result, and terminate.
+    Parameters
+    ----------
+    accumulator : [type]
+        Accumulator object to be used to accumulate input items.
+    inputQueue : [type]
+        queue from which to retrieve input items to process.
+    inputCounter : [type]
+        shared-memory counter used to track the progress of the input processing.
+    outputQueue : [type]
+        queue in which to place the result returned by the `Finalise()` method of the accumulator once all input items have been processed.
+    terminateFlag : [type]
+        shared-memory flag used to signal the worker process to finalise the accumulation, return the result, and terminate.
     """
-
     while True:
         try:
             # Try to get an item from the input queue.
