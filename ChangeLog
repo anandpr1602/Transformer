@@ -1,0 +1,41 @@
+CHANGES
+=======
+
+* update
+* Added setup.py and setup.cfg
+* Create requirements\_dev.txt
+* Updates to \`MultiprocessingHelper.py\`
+* Assorted bug fixes, updates + new features
+* Bug fix
+* Update to Utilities/DevelopmentTools.py
+* Bugfix to Framework AtomicSubstitutions() routine
+* New features, enhancements and bug fixes
+* Major update
+* Bug fix (again)
+* Bug fix
+* Major update
+* Update Structure class
+* Minor update to FilterBase
+* Performance improvement
+* Major update
+* Further refactoring and performance improvements
+* Major refactor
+* Update README
+* Major update + performance enhancements
+* Major update
+* Update README
+* Update README
+* Bug fix and performance updates
+* Updates to ConvenienceFunctions.py
+* Bug fix to StructureTools.py
+* Bug fix in Structure.py
+* Implement basic FHI-AIMS I/O; convert CZTS vacancies example to use AIMS I/O
+* Fix minor bug in ConvenienceFunctions.py; add CZTS-Vacancies example
+* Fix broken link in README
+* Correct example output files
+* Add SnS-Se solid-solution example and update README
+* Fix typos in README and correct comment in ZnS cation-mutation example
+* Update library and add examples
+* Update README and add LICENSE
+* Add README.md
+* Initial commit
